@@ -28,8 +28,10 @@ public class OrderService(IOrderRepository orderRepository, IDebtRepository debt
     public async Task<Order> CreateOrder(CreateOrderModel model)
     {
         var client = await _clientRepository.GetClientById(model.CustomerId);
+        var orders = await _orderRepository.GetAllOrders();
         var order = new Order()
         {
+            OrderNumber = orders.Max(x=> x.OrderNumber)+1,
             CustomerId = model.CustomerId,
             ProductName = model.ProductName,
             CustomerFullName = $"{client.Name} - {client.Surname}",

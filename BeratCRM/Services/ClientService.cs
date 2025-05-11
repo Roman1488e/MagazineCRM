@@ -40,19 +40,19 @@ public class ClientService(IClientRepository clientRepository)
     {
         var client = await _clientRepository.GetClientById(id);
         var checker = false;
-        if (model.Name is not null)
+        if (!string.IsNullOrEmpty(client.Name))
         {
             client.Name = model.Name;
             checker = true;
         }
 
-        if (model.Surname is not null)
+        if (!string.IsNullOrEmpty(client.Surname))
         {
             client.Surname = model.Surname;
             checker = true;
         }
 
-        if (model.Address is not null)
+        if (!string.IsNullOrEmpty(client.Address))
         {
             client.Address = model.Address;
             checker = true;
@@ -65,6 +65,8 @@ public class ClientService(IClientRepository clientRepository)
 
     public async Task<string> UpdateGovId(Guid id, UpdateClientsGovId model)
     {
+        if(string.IsNullOrEmpty(model.GovId))
+            return "GovernmentId is empty";
         var client = await _clientRepository.GetClientById(id);
         client.GovernmentId = model.GovId;
         await _clientRepository.Update(client);
@@ -73,6 +75,8 @@ public class ClientService(IClientRepository clientRepository)
 
     public async Task<string> UpdatesContactNumber(Guid id, UpdateContactInfo model)
     {
+        if(string.IsNullOrEmpty(model.ContactNumber))
+            return "ContactNumber is empty";
         var client = await _clientRepository.GetClientById(id);
         client.ContactNamber = model.ContactNumber;
         await _clientRepository.Update(client);

@@ -109,3 +109,4 @@
 /home/tryhackme/RiderProjects/BeratCRM/BeratCRM/obj/Debug/net8.0/BeratCRM.pdb
 /home/tryhackme/RiderProjects/BeratCRM/BeratCRM/obj/Debug/net8.0/BeratCRM.genruntimeconfig.cache
 /home/tryhackme/RiderProjects/BeratCRM/BeratCRM/obj/Debug/net8.0/ref/BeratCRM.dll
+/home/tryhackme/RiderProjects/BeratCRM/BeratCRM/obj/Debug/net8.0/BeratCRM.sourcelink.json

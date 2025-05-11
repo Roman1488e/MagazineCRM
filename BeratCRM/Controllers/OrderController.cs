@@ -5,9 +5,10 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BeratCRM.Controllers;
 
-public class OrderController(OrderService orderService) : Controller
+public class OrderController(OrderService orderService, StatisticsService statisticsService) : Controller
 {
     private readonly OrderService _orderService = orderService;
+    private readonly StatisticsService _statisticsService = statisticsService;
     
     [HttpPost("api/order/create")]
     public async Task<IActionResult> CreateOrder([FromBody] CreateOrderModel model)
@@ -78,6 +79,13 @@ public class OrderController(OrderService orderService) : Controller
         {
             return BadRequest(e.Message);
         }
+    }
+
+    [HttpGet("api/order/statistics")]
+    public async Task<IActionResult> GetStatistics()
+    {
+        var statistic = await _statisticsService.ShowGeneralStatistic();
+        return Ok(statistic);
     }
     
     

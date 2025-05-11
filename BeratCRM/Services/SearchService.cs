@@ -26,6 +26,7 @@ public class SearchService(IClientRepository clientRepository, IOrderRepository 
         {
             var debtDto = new DebtDto()
             {
+                id = debt.Id,
                 amount = debt.Amount,
                 lastPaymentDate = debt.LastPaymentDate,
                 lastPaymentAmount = debt.LastPaymentAmount,
