@@ -8,7 +8,7 @@ public class Debt
     public decimal Amount { get; set; }
     public Guid ClientId { get; set; }
     public Guid OrderId { get; set; }
-    public bool isPaid { get; set; }
+    public bool isPaid { get; set; } = false;
     public DateTime CreationDate { get; set; }
     public DateTime LastPaymentDate { get; set; }
     public decimal LastPaymentAmount { get; set; }

@@ -51,7 +51,7 @@ public class OrderRepository(CrmDbContext context) : IOrderRepository
     public async Task<List<Order>> GetOrdersByClientId(Guid clientId)
     {
         var entity = await _context.Orders
-            .Where(x => x.CustomerId == clientId).AsNoTracking().ToListAsync();
+            .Where(x => x.ClientId == clientId).AsNoTracking().ToListAsync();
         return entity;
     }
 }

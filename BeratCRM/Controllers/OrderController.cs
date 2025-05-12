@@ -5,10 +5,11 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BeratCRM.Controllers;
 
-public class OrderController(OrderService orderService, StatisticsService statisticsService) : Controller
+public class OrderController(OrderService orderService, StatisticsService statisticsService, ReminderService reminderService) : Controller
 {
     private readonly OrderService _orderService = orderService;
     private readonly StatisticsService _statisticsService = statisticsService;
+    private readonly ReminderService _reminderService = reminderService;
     
     [HttpPost("api/order/create")]
     public async Task<IActionResult> CreateOrder([FromBody] CreateOrderModel model)
@@ -51,6 +52,15 @@ public class OrderController(OrderService orderService, StatisticsService statis
         {
             return BadRequest(e.Message);
         }
+    }
+
+    [HttpGet("api/order/reminders")]
+    public async Task<IActionResult> GetAllReminders()
+    {
+        var reminders = await _reminderService.GetReminders();
+        if (reminders == null)
+            return NoContent();
+        return Ok(reminders);
     }
 
     [HttpDelete("api/order/{id}")]

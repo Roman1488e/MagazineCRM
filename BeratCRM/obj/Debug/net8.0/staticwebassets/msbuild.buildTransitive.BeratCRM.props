@@ -1,3 +1,3 @@
 ﻿<Project>
-  <Import Project="../buildMultiTargeting/BeratCRM.props" />
+  <Import Project="..\buildMultiTargeting\BeratCRM.props" />
 </Project>

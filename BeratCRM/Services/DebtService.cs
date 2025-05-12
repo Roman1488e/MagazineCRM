@@ -40,6 +40,8 @@ public class DebtService(IDebtRepository debtRepository, IPaymentHistoryReposito
         debt.Amount -= amount;
         debt.LastPaymentAmount = amount;
         debt.LastPaymentDate = DateTime.UtcNow;
+        if (debt.Amount == 0)
+            debt.isPaid = true;
         var paymentHistory = new PaymentHistory()
         {
             ClientId = debt.ClientId,

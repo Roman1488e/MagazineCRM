@@ -34,7 +34,7 @@ public class ClientRepository(CrmDbContext dbContext) : IClientRepository
 
     public async Task<Client> GetClientById(Guid id)
     {
-        var entity = await _dbContext.Clients.Include(x=> x.Debt)
+        var entity = await _dbContext.Clients.Include(x=> x.Debt).Include(x=>x.Orders)
             .Include(x=> x.PaymentHistory).FirstOrDefaultAsync(x => x.Id == id);
         if (entity == null)
             throw new Exception("No client found");

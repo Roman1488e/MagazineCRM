@@ -2620,19 +2620,19 @@
     ]
   },
   "packageFolders": {
-    "/home/tryhackme/.nuget/packages/": {}
+    "C:\\Users\\User\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/tryhackme/RiderProjects/BeratCRM/BeratCRM/BeratCRM.csproj",
+      "projectUniqueName": "C:\\Users\\User\\Documents\\GitHub\\MagazineCRM\\BeratCRM\\BeratCRM.csproj",
       "projectName": "BeratCRM",
-      "projectPath": "/home/tryhackme/RiderProjects/BeratCRM/BeratCRM/BeratCRM.csproj",
-      "packagesPath": "/home/tryhackme/.nuget/packages/",
-      "outputPath": "/home/tryhackme/RiderProjects/BeratCRM/BeratCRM/obj/",
+      "projectPath": "C:\\Users\\User\\Documents\\GitHub\\MagazineCRM\\BeratCRM\\BeratCRM.csproj",
+      "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\User\\Documents\\GitHub\\MagazineCRM\\BeratCRM\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/home/tryhackme/.nuget/NuGet/NuGet.Config"
+        "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
@@ -2709,7 +2709,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/8.0.408/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.408/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

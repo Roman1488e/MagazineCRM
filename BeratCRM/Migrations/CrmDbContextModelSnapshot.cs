@@ -97,15 +97,12 @@ namespace BeratCRM.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<Guid?>("ClientId")
+                    b.Property<Guid>("ClientId")
                         .HasColumnType("uuid");
 
                     b.Property<string>("CustomerFullName")
                         .IsRequired()
                         .HasColumnType("text");
-
-                    b.Property<Guid>("CustomerId")
-                        .HasColumnType("uuid");
 
                     b.Property<bool>("IsPaid")
                         .HasColumnType("boolean");
@@ -126,7 +123,7 @@ namespace BeratCRM.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<DateTime>("ReminderDate")
+                    b.Property<DateTime?>("ReminderDate")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<decimal>("TotalPrice")
@@ -185,7 +182,9 @@ namespace BeratCRM.Migrations
                 {
                     b.HasOne("BeratCRM.Entities.Client", null)
                         .WithMany("Orders")
-                        .HasForeignKey("ClientId");
+                        .HasForeignKey("ClientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("BeratCRM.Entities.PaymentHistory", b =>

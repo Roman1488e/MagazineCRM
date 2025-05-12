@@ -1,4 +1,5 @@
 using BeratCRM.DTOs;
+using BeratCRM.Models;
 using BeratCRM.Repositories;
 using BeratCRM.Repositories.Abstract;
 using Microsoft.AspNetCore.Mvc;
@@ -17,12 +18,24 @@ public class StatisticsService(IPaymentHistoryRepository paymentHistoryRepositor
         var payments = await _paymentHistoryRepository.GetAllPaymentHistory();
         var payment = new PaymentStatisticDto()
         {
+            
             EarnedForAllTime = payments.Sum(x => x.PaymentAmount),
-            EarnedinMounth =
-                payments.Where(x => x.PaymentDate.Month == DateTime.UtcNow.Month).Sum(x => x.PaymentAmount),
-            EarnedToday = payments.Where(x => x.PaymentDate.Day == DateTime.UtcNow.Day).Sum(x => x.PaymentAmount)
         };
+        payment.MounthEarnings = payments
+            .GroupBy(p => new { p.PaymentDate.Year, p.PaymentDate.Month })
+            .Select(g => new MounthEarnings
+            {
+                Year = g.Key.Year,
+                Month = g.Key.Month,
+                Amount = g.Sum(x => x.PaymentAmount),
+                MonthName = new DateTime(g.Key.Year, g.Key.Month, 1).ToString("MMMM")
+            })
+            .OrderBy(e => e.Year)
+            .ThenBy(e => e.Month)
+            .ToList();
+
         return payment;
+
 
     }
 
@@ -32,8 +45,6 @@ public class StatisticsService(IPaymentHistoryRepository paymentHistoryRepositor
         var orders = await _orderRepository.GetAllOrders();
         var debtstatistic = new DebtStatisticDto()
         {
-            LastDebtPaymentDate = debt.Max(x => x.LastPaymentDate),
-            PaidDebtAmount = orders.Sum(x => x.TotalPrice - x.PaidAmount),
             TotalDebtAmount = debt.Sum(x => x.Amount)
         };
         return debtstatistic;
@@ -47,7 +58,7 @@ public class StatisticsService(IPaymentHistoryRepository paymentHistoryRepositor
         var generalStatistic = new GeneralStatisticDto()
         {
             TotalClients = clients.Count,
-            TotalDebts = debt.Count,
+            NotPaidDebts = debt.Count(x => !x.isPaid),
             TotalOrders = orders.Count,
             PaidOrders = orders.Count(x => x.IsPaid),
         };

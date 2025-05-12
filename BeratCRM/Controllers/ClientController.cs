@@ -39,7 +39,7 @@ public class ClientController(ClientService service, SearchService searchService
         return Ok(clients);
     }
     
-    [HttpPost("/api/clients/delete/{id}")]
+    [HttpDelete("/api/clients/{id}")]
     public async Task<IActionResult> DeleteClient(Guid id)
     {
         var client = await _service.DeleteClient(id);
@@ -66,4 +66,5 @@ public class ClientController(ClientService service, SearchService searchService
         var clients = await _service.UpdatesContactNumber(id, model);
         return Ok(clients);
     }
+    
 }

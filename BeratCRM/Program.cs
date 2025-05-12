@@ -15,6 +15,7 @@ builder.Services.AddControllers();
 builder.Services.AddCors();
 builder.Services.AddScoped<DebtService>();
 builder.Services.AddScoped<SearchService>();
+builder.Services.AddScoped<ReminderService>();
 builder.Services.AddScoped<PaymentHistoryService>();
 builder.Services.AddScoped<StatisticsService>();
 builder.Services.AddScoped<IClientRepository, ClientRepository>();

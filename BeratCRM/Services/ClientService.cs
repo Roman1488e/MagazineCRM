@@ -29,7 +29,7 @@ public class ClientService(IClientRepository clientRepository)
             Surname = client.Surname,
             GovernmentId = client.GovernmentId,
             Address = client.Address,
-            ContactNamber = client.ContactNamber,
+            ContactNamber = client.ContactNumber,
             DateOfRegistration = DateTime.UtcNow
         };
         await _clientRepository.Create(entity);

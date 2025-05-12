@@ -16,12 +16,14 @@ public class OrderService(IOrderRepository orderRepository, IDebtRepository debt
     public async Task<List<Order>> GetOrders()
     {
         var orders = await _orderRepository.GetAllOrders();
+        await CheckReminders();
         return orders;
     }
 
     public async Task<Order> GetOrder(Guid id)
     {
         var order = await _orderRepository.GetByOrderId(id);
+        await CheckReminders();
         return order;
     }
 
@@ -31,16 +33,18 @@ public class OrderService(IOrderRepository orderRepository, IDebtRepository debt
         var orders = await _orderRepository.GetAllOrders();
         var order = new Order()
         {
-            OrderNumber = orders.Max(x=> x.OrderNumber)+1,
-            CustomerId = model.CustomerId,
+            OrderNumber = orders.Max(x=> (int?)x.OrderNumber)+1 ?? 0,
+            ClientId = model.CustomerId,
             ProductName = model.ProductName,
             CustomerFullName = $"{client.Name} - {client.Surname}",
             TotalPrice = model.TotalPrice,
             OrderDate = DateTime.UtcNow,
             PaidAmount = model.PaidAmount,
-            ReminderDate = DateTime.UtcNow.AddMonths(model.RemindInMonths),
             IsPaid = (model.TotalPrice - model.PaidAmount) == 0
         };
+        if (model.RemindInMonths == 0)
+            order.ReminderDate = null;
+        order.ReminderDate = DateTime.UtcNow.AddMonths(model.RemindInMonths);
         await _orderRepository.Create(order);
         var realOrder = await _orderRepository.GetByOrderId(order.OrderId);
 
@@ -51,7 +55,7 @@ public class OrderService(IOrderRepository orderRepository, IDebtRepository debt
                 CreationDate = DateTime.UtcNow,
                 LastPaymentDate = DateTime.UtcNow,
                 Amount = order.TotalPrice - model.PaidAmount,
-                ClientId = order.CustomerId,
+                ClientId = order.ClientId,
                 LastPaymentAmount = model.PaidAmount,
                 OrderId = realOrder.OrderId
             };
@@ -60,11 +64,12 @@ public class OrderService(IOrderRepository orderRepository, IDebtRepository debt
 
         var paymentHist = new PaymentHistory()
         {
-            ClientId = order.CustomerId,
+            ClientId = order.ClientId,
             PaymentDate = DateTime.UtcNow,
             PaymentAmount = order.PaidAmount,
             OrderId = realOrder.OrderId
         };
+        await CheckReminders();
         await _paymentHistoryRepository.Create(paymentHist);
         return realOrder;
     }
@@ -75,20 +80,42 @@ public class OrderService(IOrderRepository orderRepository, IDebtRepository debt
         if (model.ProductName is not null)
             order.ProductName = model.ProductName;
         if (model.ReminderDate is not null && model.ReminderDate > DateTime.UtcNow)
-            order.ReminderDate = model.ReminderDate.Value;
+        {
+            if(order.IsReminding)
+                order.IsReminding = false;
+            
+            order.ReminderDate = model.ReminderDate;
+        }
+            
+        await CheckReminders();
         await _orderRepository.Update(order);
         return order;
     }
 
     public async Task<string> DeleteOrder(Guid id)
     {
+        await CheckReminders();
         await _orderRepository.Delete(id);
         return "Order deleted";
     }
 
     public async Task<List<Order>> GetOrdersByCustomerId(Guid customerId)
     {
+        await CheckReminders();
         var orders = await _orderRepository.GetOrdersByClientId(customerId);
         return orders;
+    }
+
+    private async Task CheckReminders()
+    {
+        var orders = await _orderRepository.GetAllOrders();
+        foreach (var order in orders)
+        {
+            if (DateTime.UtcNow.AddDays(3) <= order.ReminderDate)
+            {
+                order.IsReminding = true;
+                await _orderRepository.Update(order);
+            }
+        }
     }
 }
