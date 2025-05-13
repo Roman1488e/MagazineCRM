@@ -110,3 +110,8 @@ C:\Users\User\Documents\GitHub\MagazineCRM\BeratCRM\obj\Release\net8.0\refint\Be
 C:\Users\User\Documents\GitHub\MagazineCRM\BeratCRM\obj\Release\net8.0\BeratCRM.pdb
 C:\Users\User\Documents\GitHub\MagazineCRM\BeratCRM\obj\Release\net8.0\BeratCRM.genruntimeconfig.cache
 C:\Users\User\Documents\GitHub\MagazineCRM\BeratCRM\obj\Release\net8.0\ref\BeratCRM.dll
+C:\Users\User\Documents\GitHub\MagazineCRM\BeratCRM\bin\Release\net8.0\publish\web.config
+C:\Users\User\Documents\GitHub\MagazineCRM\BeratCRM\bin\Release\net8.0\publish\appsettings.Development.json
+C:\Users\User\Documents\GitHub\MagazineCRM\BeratCRM\bin\Release\net8.0\publish\appsettings.json
+C:\Users\User\Documents\GitHub\MagazineCRM\BeratCRM\bin\Release\net8.0\publish\BeratCRM.deps.json
+C:\Users\User\Documents\GitHub\MagazineCRM\BeratCRM\bin\Release\net8.0\publish\BeratCRM.runtimeconfig.json

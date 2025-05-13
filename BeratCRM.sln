@@ -2,6 +2,8 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeratCRM", "BeratCRM\BeratCRM.csproj", "{44CDF502-B119-4821-ABBE-977E38D63C2E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeratFront", "..\MagazineFront\BeratFront\BeratFront.csproj", "{3C2B9353-B4AD-4F87-A9B3-2C00B434B0E1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +14,9 @@ Global
 		{44CDF502-B119-4821-ABBE-977E38D63C2E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{44CDF502-B119-4821-ABBE-977E38D63C2E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{44CDF502-B119-4821-ABBE-977E38D63C2E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3C2B9353-B4AD-4F87-A9B3-2C00B434B0E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C2B9353-B4AD-4F87-A9B3-2C00B434B0E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C2B9353-B4AD-4F87-A9B3-2C00B434B0E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3C2B9353-B4AD-4F87-A9B3-2C00B434B0E1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
