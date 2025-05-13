@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("BeratCRM")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f3c721f82460e7c4573377dcc05770c17403b813")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+034e3d64a384922e9e5a55fed8cc58aa31b64a2a")]
 [assembly: System.Reflection.AssemblyProductAttribute("BeratCRM")]
 [assembly: System.Reflection.AssemblyTitleAttribute("BeratCRM")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

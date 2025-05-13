@@ -13,6 +13,7 @@ public class Order
     public DateTime OrderDate { get; set; }
     public DateTime? ReminderDate { get; set; }
     public List<PaymentHistory>? PaymentHistory { get; set; }
+    public int RemindInMounts { get; set; }
     public decimal TotalPrice { get; set; }
     public decimal PaidAmount { get; set; }
 }

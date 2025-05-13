@@ -35,6 +35,7 @@ public class OrderService(IOrderRepository orderRepository, IDebtRepository debt
         {
             OrderNumber = orders.Max(x=> (int?)x.OrderNumber)+1 ?? 0,
             ClientId = model.CustomerId,
+            RemindInMounts = model.RemindInMonths,
             ProductName = model.ProductName,
             CustomerFullName = $"{client.Name} - {client.Surname}",
             TotalPrice = model.TotalPrice,
@@ -79,7 +80,7 @@ public class OrderService(IOrderRepository orderRepository, IDebtRepository debt
         var order = await _orderRepository.GetByOrderId(id);
         if (model.ProductName is not null)
             order.ProductName = model.ProductName;
-        if (model.ReminderDate is not null && model.ReminderDate > DateTime.UtcNow)
+        if (model.ReminderDate is not null && model.ReminderDate.Value > DateTime.UtcNow)
         {
             if(order.IsReminding)
                 order.IsReminding = false;
@@ -111,7 +112,7 @@ public class OrderService(IOrderRepository orderRepository, IDebtRepository debt
         var orders = await _orderRepository.GetAllOrders();
         foreach (var order in orders)
         {
-            if (DateTime.UtcNow.AddDays(3) <= order.ReminderDate)
+            if (DateTime.UtcNow.AddDays(3) >= order.ReminderDate)
             {
                 order.IsReminding = true;
                 await _orderRepository.Update(order);

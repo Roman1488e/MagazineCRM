@@ -63,6 +63,13 @@ public class OrderController(OrderService orderService, StatisticsService statis
         return Ok(reminders);
     }
 
+    [HttpPut("api/order/{id}/markaschecked")]
+    public async Task<IActionResult> MarkAsChecked(Guid id)
+    {
+        await _reminderService.MarkAsChecked(id);
+        return Ok();
+    }
+
     [HttpDelete("api/order/{id}")]
     public async Task<IActionResult> DeleteOrder(Guid id)
     {

@@ -4,11 +4,12 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BeratCRM.Controllers;
 
-public class DebtController(DebtService service, SearchService searchService, StatisticsService statisticsService) : Controller
+public class DebtController(DebtService service, SearchService searchService, StatisticsService statisticsService, ReminderService reminderService) : Controller
 {
     private readonly DebtService _service = service;
     private readonly SearchService _searchService = searchService;
     private readonly StatisticsService _statisticsService = statisticsService;
+    private readonly ReminderService _reminderService = reminderService;
     [HttpGet("api/debt/{id}")]
     public async Task<IActionResult> GetDebt(Guid id)
     {
@@ -49,6 +50,14 @@ public class DebtController(DebtService service, SearchService searchService, St
         var result = await _service.PayDebt(debtid, amount);
         return Ok(result);
     }
+
+    [HttpGet("api/debt/reminders")]
+    public async Task<IActionResult> Reminders()
+    {
+        var reminders = await _reminderService.GetDebtPaymentReminders();
+        return Ok(reminders);
+    }
+    
 
 
     [HttpGet("api/debt/statistics")]
